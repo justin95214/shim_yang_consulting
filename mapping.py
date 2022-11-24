@@ -154,7 +154,7 @@ def mapping1(T_df, T_im_df, day, df_element ,result_df, im_result_df):
 			total_d_l = total_distance_dict[left]
 			total_d_w = total_distance_dict[work]
 
-			print(left_t, work_t, left, work)
+			#print(left_t, work_t, left, work)
 			
 			l_idx = l_idx
 			w_idx = len(T_df.columns) -1 - w_idx	 
@@ -208,14 +208,14 @@ def vlookup_data(map1_df, result_df_T, im_result_df_T, day, df_element):
 	for m1, m2  in zip(merge1_df['Match-1'].values.tolist(),merge2_df['Match-2'].values.tolist()):
 		p1 = merge1_df[merge1_df['Match-1']==m1].values.tolist()[0]
 		p2 = merge2_df[merge2_df['Match-2']==m2].values.tolist()
-		print(f'p1 : {len(p1), p1}')
-		print(f'p2 : {len(p2), p2}')
+		#print(f'p1 : {len(p1), p1}')
+		#print(f'p2 : {len(p2), p2}')
 		tmp = []
 		if len(p2) >= 0:
 			tmp.extend(p1[:9])
 			tmp.append('DP')
 			a = p1[9:]
-			print(f'a : {a}')
+			#print(f'a : {a}')
 			a = ' '.join(a).split()
 			a.append('DP')
 			tmp.extend(a)
@@ -388,7 +388,7 @@ def dataframe2html(route_list, day, df_element, location):
 def draw_map(df_element, day):
 	client_code1 = pd.read_csv(ss.Client_code)
 	client_code2 = pd.read_excel(ss.DF_client)
-	print(client_code1.head(5))
+	#print(client_code1.head(5))
 
 	path0 =["map_test","./map_test/"+df_element+"/"]
 	
@@ -450,7 +450,7 @@ def draw_map(df_element, day):
 			else:
 				p_list.append(point)
 
-		print(f'point list : {p_list}')
+		#print(f'point list : {p_list}')
 
 		color_list = random_color_code()
 
