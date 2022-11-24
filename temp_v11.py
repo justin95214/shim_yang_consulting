@@ -30,7 +30,7 @@ class Route:
 		temp_df = self.tool.cal_xy_client(temp_df)
 		temp_df = self.tool.cal_xy_distance(temp_df, current_point)
 		temp_df = self.tool.cal_azimuth(temp_df, current_point)
-		tt.autolog()
+		#tt.autolog()
 		return temp_df
 
 	def client_to_client(self, temp_df, current_point):
@@ -39,7 +39,7 @@ class Route:
 		temp_df = self.tool.cal_xy_point(temp_df, current_point)
 		temp_df = self.tool.cal_xy_distance(temp_df, current_point)
 		temp_df = self.tool.cal_azimuth(temp_df, current_point)
-		tt.autolog()
+		#tt.autolog()
 		return temp_df
 
 
@@ -50,7 +50,7 @@ class Route:
 		average_speed = df_info[df_info['DP']==df_element]['평균 운행 속도(km/h)'].values.tolist()[0]
 		get_up = df_info[df_info['DP']==df_element]['상차시간(분)'].values.tolist()[0]
 		get_off = df_info[df_info['DP']==df_element]['하차시간(분)'].values.tolist()[0]
-		tt.autolog()
+		#tt.autolog()
 		return kappa, drive_time, average_speed, get_up, get_off
 
 
@@ -88,11 +88,11 @@ class Route:
 
 
 
-		logger.debug(f'situation_update0 >>  kappa : {left_kappa} | this kappa : {Max_point[day]}  | this_distance : {this_distance} | total_distance :{total_distance} | this_time :{this_time*60} | get_off :  {get_off} ')
+		#logger.debug(f'situation_update0 >>  kappa : {left_kappa} | this kappa : {Max_point[day]}  | this_distance : {this_distance} | total_distance :{total_distance} | this_time :{this_time*60} | get_off :  {get_off} ')
 
 		##########		
 		location = Max_point['code']
-		logger.debug(f'location : {location}')
+		#logger.debug(f'location : {location}')
 		trace_list.append(location)
 		distance_list.append(str(this_distance))
 		time_list.append(str(left_drive_time))
@@ -108,7 +108,7 @@ class Route:
 
 
 
-		logger.error(f'DP 복귀 후 시간 : {left_drive_time - DP_time} | left time : {left_drive_time} | DP까지-time : {DP_time}')
+		#logger.error(f'DP 복귀 후 시간 : {left_drive_time - DP_time} | left time : {left_drive_time} | DP까지-time : {DP_time}')
 		if left_drive_time <=0 or left_kappa <0 :
 			# 근무시간 또는 kappa가 0보다 작아 질때 업데이트 한 요소들들 되돌린다.
 
@@ -121,7 +121,7 @@ class Route:
 			total_distance = before_distance - this_distance
 			route_check = True
 
-			logger.error(f'변경 없음:,{this_distance}, {total_distance}, {this_time},{left_drive_time}')
+			#logger.error(f'변경 없음:,{this_distance}, {total_distance}, {this_time},{left_drive_time}')
 
 			## stopby =0 visit 방문 표시 해제
 			temp_df.loc[temp_df['code']==trace_list[-1],'stopby']=0
@@ -138,12 +138,12 @@ class Route:
 			time_list = time_list[:-1]
 
 
-			logger.info(f' route 마지막  :, DP distance : {DP_distance}, total distance : {total_distance}, DP time : {DP_time},  left time : {left_drive_time}')
+			#logger.info(f' route 마지막  :, DP distance : {DP_distance}, total distance : {total_distance}, DP time : {DP_time},  left time : {left_drive_time}')
 			
-			logger.debug(f'situation_update1-1 >> this_distance : {this_distance} | total_distance :{total_distance} | left time : \
-			{left_drive_time} | this_time :{this_time*60} | {get_off} ')
+			#logger.debug(f'situation_update1-1 >> this_distance : {this_distance} | total_distance :{total_distance} | left time : \
+			#{left_drive_time} | this_time :{this_time*60} | {get_off} ')
 
-			logger.debug(f'situation_update1-2 >> check the dp time : DP_distance : {DP_distance} | DP_time :{DP_time} | ')
+			#logger.debug(f'situation_update1-2 >> check the dp time : DP_distance : {DP_distance} | DP_time :{DP_time} | ')
 			return trace_list, left_drive_time, int(left_kappa), total_distance, route_check, distance_list, time_list, to_dp_info
 
 
@@ -155,7 +155,7 @@ class Route:
 
 			
 		#print(this_distance, total_distance, this_time,left_drive_time)
-		tt.autolog()
+		#tt.autolog()
 		return trace_list, left_drive_time, int(left_kappa), total_distance, route_check, distance_list, time_list, to_dp_info
 			
 
@@ -193,7 +193,7 @@ class Route:
 		#업데이트 현황
 		trace_list, left_drive_time, left_kappa, total_distance, route_check, distance_list, time_list, to_dp_info =self.situation_update(temp_df[temp_df['stopby']==0], Max_distance_row_point, left_kappa, trace_list, average_speed, left_drive_time,total_distance, day,get_up, get_off, distance_list, time_list)
 
-		logger.info(f'>> start : {trace_list[-2]} |  arrive : {trace_list[-1]} | left time : { left_drive_time}  | left kappa : {left_kappa}')		
+		#logger.info(f'>> start : {trace_list[-2]} |  arrive : {trace_list[-1]} | left time : { left_drive_time}  | left kappa : {left_kappa}')
 		#time.sleep(10)
 		
 		#현재 위치 변경	
@@ -238,9 +238,9 @@ class Route:
 				self.situation_update(temp_df, Max_distance_deg_point, left_kappa, trace_list, average_speed, left_drive_time, total_distance, day, get_up, get_off,distance_list, time_list)
 
 				current_point = trace_list[-1]
-				logger.info(f'>> start : {trace_list[-2]} |  arrive : {trace_list[-1]} | left time : { left_drive_time}  | left kappa : { left_kappa}')
+				#logger.info(f'>> start : {trace_list[-2]} |  arrive : {trace_list[-1]} | left time : { left_drive_time}  | left kappa : { left_kappa}')
 
-				logger.debug(f'Trace List : {trace_list}')
+				#logger.debug(f'Trace List : {trace_list}')
 		
 			if route_check ==True:
 
@@ -270,7 +270,7 @@ class Route:
 				left_drive_time = drive_time
 				left_kappa = kappa
 				stopby_count = len(temp_df[temp_df['stopby']==0])
-				logger.debug(f'stopby count : {stopby_count}')
+				#logger.debug(f'stopby count : {stopby_count}')
 
 				#처음 상황
 				if left_count_0 > 0 :
@@ -291,7 +291,7 @@ class Route:
 						trace_list, left_drive_time, left_kappa, total_distance, route_check, distance_list, time_list, to_dp_info = \
 						self.situation_update(temp_df[temp_df['stopby']==0], Max_distance_row_point, left_kappa, trace_list, average_speed, left_drive_time, total_distance,day, get_up, get_off, distance_list, time_list)
 
-						logger.info(f'>> start : {trace_list[-2]} |  arrive : {trace_list[-1]} | left time : { left_drive_time}  | left kappa : { left_kappa}')
+						#logger.info(f'>> start : {trace_list[-2]} |  arrive : {trace_list[-1]} | left time : { left_drive_time}  | left kappa : { left_kappa}')
 
 						#현재 위치 변경
 						current_point = trace_list[-1]
@@ -300,7 +300,7 @@ class Route:
 						trace_list, left_drive_time, left_kappa, total_distance, route_check, distance_list, time_list, to_dp_info = \
 						self.situation_update(temp_df[temp_df['stopby']==0], Max_distance_row_point, left_kappa, trace_list, average_speed, left_drive_time, total_distance,day, get_up, get_off, distance_list, time_list)
 
-						logger.info(f'>> start : {trace_list[-2]} |  arrive : {trace_list[-1]} | left time : { left_drive_time}  | left kappa : { left_kappa}')
+						#logger.info(f'>> start : {trace_list[-2]} |  arrive : {trace_list[-1]} | left time : { left_drive_time}  | left kappa : { left_kappa}')
 						current_point = trace_list[-1]
 				else:
 					break;
