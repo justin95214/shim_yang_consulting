@@ -385,9 +385,12 @@ def dataframe2html(route_list, day, df_element, location):
 	df.to_html('./map_test/'+df_element+"/"+day+location+'_route.html',encoding='euc-kr')
 
 
+client_code1 = pd.read_csv(ss.Client_code)
+client_code2 = pd.read_excel(ss.DF_client)
+
 def draw_map(df_element, day):
-	client_code1 = pd.read_csv(ss.Client_code)
-	client_code2 = pd.read_excel(ss.DF_client)
+	#client_code1 = pd.read_csv(ss.Client_code)
+	#client_code2 = pd.read_excel(ss.DF_client)
 	#print(client_code1.head(5))
 
 	path0 =["map_test","./map_test/"+df_element+"/"]
